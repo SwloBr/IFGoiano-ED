@@ -23,11 +23,11 @@ This repository stores all files referring the Data Structure class at IF-Goiano
 
 ## 📝 Licença / License
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](/LICENSE.md) para mais detalhes.
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](/LICENSE) para mais detalhes.
 
 <br>
 
-This project is under the MIT license. see the file [LICENSE](/LICENSE.md) for more details.
+This project is under the MIT license. see the file [LICENSE](/LICENSE) for more details.
 
 ## 🏫 Escola / School 
 
