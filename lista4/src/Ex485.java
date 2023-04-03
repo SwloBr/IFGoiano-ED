@@ -18,7 +18,7 @@ public class Ex485 {
 
         }
         System.out.println("");
-        multivetor(num, num1);
+        multivetor(num, num1, num);
     }
 
     private static void multivetor(int[] vet1, String[] vet2, int[] tam) {
