@@ -1,22 +1,25 @@
 package com.swlo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
 
-    private static final ArrayList<String> soldiers = new ArrayList<>(Arrays.asList("Pedro", "Davi", "João", "Beltras", "Bruno", "Vitor", "Guilherme", "Enzo", "Samuel", "Carlos", "Alfredo", "Augusto", "Gabriel", "Rhennan", "Caua", "Wisley", "Julio", "Yuri", "Arthur", "Nicolas"));
-
+    private static final LinkedList<String> soldiers = new LinkedList<>(Arrays.asList("Pedro", "Davi", "João", "Beltras", "Bruno", "Vitor", "Guilherme", "Enzo", "Samuel", "Carlos", "Alfredo", "Augusto", "Gabriel", "Rhennan", "Caua", "Wisley", "Julio", "Yuri", "Arthur", "Nicolas"));
+    private static final int target = getRandomNumber(1, 30);
 
     public static void main(String[] args) {
-        for (int i = 19; i != 0; i--) {
+        System.out.println("O numero escolhi como alvo foi o " + target);
+        ListIterator<String> soldiresIterator = soldiers.listIterator();
 
-            System.out.println(soldiers.remove(getRandomNumber(0, i + 1)) + " foi removido.");
-
+        while (soldiers.size() > 1) {
+            for (int i = 0; i < target; i++) {
+                if (!soldiresIterator.hasNext()) {
+                    soldiresIterator = soldiers.listIterator();
+                }
+                soldiresIterator.next();
+            }
+            soldiresIterator.remove();
         }
-
-
         revealWinner(soldiers.get(0));
     }
 
