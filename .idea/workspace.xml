@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="443fd851-31e1-4675-abdf-de6cbfe02a6f" name="Changes" comment="Actualized an Activity">
-      <change afterPath="$PROJECT_DIR$/HanoiTower/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HanoiTower/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HanoiTower/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HanoiTower/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HanoiTower/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HanoiTower/src/main/java/com/swlo/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/src/main/java/com/swlo/Converters.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/src/main/java/com/swlo/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolishCalculator/src/main/java/com/swlo/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IFGoiano-ED1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/IFGoiano-ED1.iml" afterDir="false" />
-    </list>
+    <list default="true" id="443fd851-31e1-4675-abdf-de6cbfe02a6f" name="Changes" comment="HanoiTower and PolishCalcutor exercices" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -285,7 +266,7 @@
       <workItem from="1682898335976" duration="1811000" />
       <workItem from="1682935661285" duration="8787000" />
       <workItem from="1682473971598" duration="191000" />
-      <workItem from="1682945830100" duration="7132000" />
+      <workItem from="1682945830100" duration="7521000" />
     </task>
     <task id="LOCAL-00001" summary="Second">
       <created>1678156232950</created>
@@ -336,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682474129184</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="HanoiTower and PolishCalcutor exercices">
+      <created>1682956821669</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682956821669</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +349,8 @@
     <MESSAGE value="Activities from &quot;Aula11&quot;" />
     <MESSAGE value="Activity from &quot;Aula12&quot;" />
     <MESSAGE value="Actualized an Activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualized an Activity" />
+    <MESSAGE value="HanoiTower and PolishCalcutor exercices" />
+    <option name="LAST_COMMIT_MESSAGE" value="HanoiTower and PolishCalcutor exercices" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/IFGoiano_ED1$ex2.ic" NAME="ex2 Coverage Results" MODIFIED="1682168900519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
