@@ -1,5 +1,6 @@
 package com.swlo;
 
+import java.awt.dnd.DragSourceDragEvent;
 import java.util.Scanner;
 
 public class Main {
@@ -13,9 +14,9 @@ public class Main {
         scanner.close();
 
         long startTime = System.nanoTime();
-        HanaoiTower(discs, "A", "C", "B");
-        long endTime = System.nanoTime();
-        long resultTime = endTime - startTime;
+        HanaoiTower(discs, "Pino 1", "Pino 2", "Pino 3");
+        long stopTime = System.nanoTime();
+        long resultTime = stopTime - startTime;
 
         String formattedTime = formatTime(resultTime);
         System.out.println("\nTempo de execução: " + formattedTime);
