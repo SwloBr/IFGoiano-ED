@@ -53,7 +53,6 @@ public class Main {
 
             System.out.print("na pilha " + randomPile + "\n");
 
-            // Verifica se alguma pilha ficou vazia
             if (stack1.isEmpty() || stack2.isEmpty() || stack3.isEmpty()) {
                 System.out.println("Pilha(s) vazia: " + returnEmptyStack());
                 break;
