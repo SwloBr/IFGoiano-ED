@@ -6,9 +6,23 @@ public class DoubleLinkedList {
     private int elementsQuantity = 0;
 
 
-
-
     public DoubleLinkedList() {
+    }
+
+    public void remapHead(DoubleLinkedList list) {
+        Cell element = null;
+        for (int i = 0; i < list.elementsQuantity - 1; i++) {
+            if (i == 0) {
+                element = list.first;
+            }
+            element.setHeadFirst(list.first);
+            element.setHeadLast(list.last);
+            element = element.getNext();
+        }
+    }
+
+    public DoubleLinkedList duplicate() {
+        return this;
     }
 
 
@@ -27,6 +41,7 @@ public class DoubleLinkedList {
         }
 
         this.elementsQuantity = list1.elementsQuantity + list2.elementsQuantity;
+        remapHead(list1);
     }
 
     private boolean isEmpty() {
@@ -37,6 +52,74 @@ public class DoubleLinkedList {
     public boolean occupedPosition(int pos) {
         return ((pos >= 0) && (pos < this.elementsQuantity));
 
+    }
+
+    public void split(int pos, DoubleLinkedList list1, DoubleLinkedList list2) {
+        if (!this.occupedPosition(pos)) {
+            throw new IllegalArgumentException("Posicao nao existe");
+        }
+
+        if (pos == 0) {
+            list1.first = this.first;
+            list1.last = this.last;
+            list1.elementsQuantity = this.elementsQuantity;
+            list2.first = null;
+            list2.last = null;
+            list2.elementsQuantity = 0;
+        } else if (pos == this.elementsQuantity - 1) {
+            list1.first = null;
+            list1.last = null;
+            list1.elementsQuantity = 0;
+            list2.first = this.first;
+            list2.last = this.last;
+            list2.elementsQuantity = this.elementsQuantity;
+        } else {
+            Cell splitCell = this.takeCell(pos);
+            list1.first = this.first;
+            list1.last = splitCell.getPrevius();
+            list1.elementsQuantity = pos;
+            list2.first = splitCell;
+            list2.last = this.last;
+            list2.elementsQuantity = this.elementsQuantity - pos;
+            splitCell.getPrevius().setNext(null);
+            splitCell.setPrevius(null);
+
+            remapHead(list1);
+            remapHead(list2);
+        }
+    }
+
+    public DoubleLinkedList merge(DoubleLinkedList list1, DoubleLinkedList list2) {
+        DoubleLinkedList mergedList = new DoubleLinkedList();
+
+        Cell current1 = list1.first;
+        Cell current2 = list2.first;
+
+        while (current1 != null && current2 != null) {
+            Comparable<Object> element1 = (Comparable<Object>) current1.getElement();
+            Comparable<Object> element2 = (Comparable<Object>) current2.getElement();
+
+            if (element1.compareTo(element2) <= 0) {
+                mergedList.addLast(element1);
+                current1 = current1.getNext();
+            } else {
+                mergedList.addLast(element2);
+                current2 = current2.getNext();
+            }
+        }
+
+        while (current1 != null) {
+            mergedList.addLast(current1.getElement());
+            current1 = current1.getNext();
+        }
+
+        while (current2 != null) {
+            mergedList.addLast(current2.getElement());
+            current2 = current2.getNext();
+        }
+
+        remapHead(mergedList);
+        return mergedList;
     }
 
     public Cell getFirst() {
@@ -78,6 +161,7 @@ public class DoubleLinkedList {
             this.first = nova;
         }
         this.elementsQuantity++;
+        remapHead(this);
     }
 
     public void addLast(Object elemento) {
@@ -93,6 +177,7 @@ public class DoubleLinkedList {
 
         }
         this.elementsQuantity++;
+        remapHead(this);
     }
 
     public void add(Object elemento) {
@@ -104,6 +189,7 @@ public class DoubleLinkedList {
             nova.setPrevius(this.last);
             this.last = nova;
             this.elementsQuantity++;
+            remapHead(this);
         }
     }
 
@@ -120,6 +206,7 @@ public class DoubleLinkedList {
             anterior.setNext(nova);
             proxima.setPrevius(nova);
             this.elementsQuantity++;
+            remapHead(this);
         }
     }
 
@@ -133,6 +220,7 @@ public class DoubleLinkedList {
         if (this.elementsQuantity == 0) {
             this.last = null;
         }
+        remapHead(this);
     }
 
 
@@ -149,6 +237,7 @@ public class DoubleLinkedList {
                 this.elementsQuantity--;
             }
         }
+        remapHead(this);
     }
 
     public void remove(int pos) {
@@ -168,6 +257,7 @@ public class DoubleLinkedList {
                 this.elementsQuantity--;
             }
         }
+        remapHead(this);
     }
 
     public boolean contains(Object elemento) {
@@ -207,6 +297,27 @@ public class DoubleLinkedList {
             builder.append("]");
             return (builder.toString());
         }
+    }
+
+    public int countElementsQuantity() {
+
+        if (isEmpty()) {
+            return 0;
+        }
+        if (last == first) {
+            return 1;
+        }
+        int i = 1;
+        Cell element = first;
+        while (true) {
+            i++;
+            if (element.getNext() == null) {
+                return i;
+            }
+            element = element.getNext();
+
+        }
+
     }
 
 }
