@@ -1,28 +1,38 @@
 package com.swlo;
 
 public class DoubleLinkedList {
-    Cell first;
-    Cell last;
-    int elementsQuantity = 0;
+    private Cell first;
+    private Cell last;
+    private int elementsQuantity = 0;
 
 
-    public DoubleLinkedList(Cell first, Cell last, int elementsQuantity) {
-        this.first = first;
-        this.last = last;
-        this.elementsQuantity = elementsQuantity;
-    }
+
+
     public DoubleLinkedList() {
     }
 
 
-    public DoubleLinkedList unify(DoubleLinkedList first, DoubleLinkedList second) {
-        first.addLast(second.getFirst());
-        DoubleLinkedList result = new DoubleLinkedList(first.getFirst(), second.getLast(), first.getElementsQuantity()+ second.getElementsQuantity());
-        first = null;
-        second = null;
-        return result;
+    public void unify(DoubleLinkedList list1, DoubleLinkedList list2) {
+        if (list1.isEmpty()) {
+            this.first = list2.first;
+            this.last = list2.last;
+        } else if (list2.isEmpty()) {
+            this.first = list1.first;
+            this.last = list1.last;
+        } else {
+            this.first = list1.first;
+            list1.last.setNext(list2.first);
+            list2.first.setPrevius(list1.last);
+            this.last = list2.last;
+        }
 
+        this.elementsQuantity = list1.elementsQuantity + list2.elementsQuantity;
     }
+
+    private boolean isEmpty() {
+        return first == null && last == null;
+    }
+
 
     public boolean occupedPosition(int pos) {
         return ((pos >= 0) && (pos < this.elementsQuantity));
