@@ -13,25 +13,28 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
 
         TreeNode<T> current = getRoot();
 
-
-        if (element.compareTo(current.getElement()) < 0) {
-            if (current.getLeftChild() == null) {
-                current.setLeftChild(new TreeNode<>(element, current));
-            } else {
-                current = current.getLeftChild();
+        while (true) {
+            if (element.compareTo(current.getElement()) < 0) {
+                if (current.getLeftChild() == null) {
+                    current.setLeftChild(new TreeNode<>(element, current));
+                    break;
+                } else {
+                    current = current.getLeftChild();
+                }
             }
-        }
 
-        if (element.compareTo(current.getElement()) > 0) {
-            if (current.getRightChild() == null) {
-                current.setRightChild(new TreeNode<>(element, current));
-            } else {
-                current = current.getRightChild();
+            if (element.compareTo(current.getElement()) > 0) {
+                if (current.getRightChild() == null) {
+                    current.setRightChild(new TreeNode<>(element, current));
+                    break;
+                } else {
+                    current = current.getRightChild();
+                }
             }
-        }
 
-        if (element.compareTo(current.getElement()) == 0) {
-            return;
+            if (element.compareTo(current.getElement()) == 0) {
+                break;
+            }
         }
     }
 
@@ -48,7 +51,7 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
 
 
         if (current.getLeftChild() == null && current.getRightChild() == null) {
-            auxiliary = current.getDad();
+            auxiliary = current.getParent();
             if (auxiliary.getLeftChild() == current) {
                 auxiliary.setLeftChild(null);
             } else {
@@ -57,24 +60,24 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
         }
 
         if (current.getLeftChild() != null && current.getRightChild() == null) {
-            auxiliary = current.getDad();
+            auxiliary = current.getParent();
             if (auxiliary.getLeftChild() == current) {
                 auxiliary.setLeftChild(current.getLeftChild());
-                auxiliary.getLeftChild().setDad(auxiliary);
+                auxiliary.getLeftChild().setParent(auxiliary);
             } else {
                 auxiliary.setRightChild(current.getLeftChild());
-                auxiliary.getRightChild().setDad(auxiliary);
+                auxiliary.getRightChild().setParent(auxiliary);
             }
         }
 
         if (current.getLeftChild() == null && current.getRightChild() != null) {
-            auxiliary = current.getDad();
+            auxiliary = current.getParent();
             if (auxiliary.getLeftChild() == current) {
                 auxiliary.setLeftChild(current.getRightChild());
-                auxiliary.getLeftChild().setDad(auxiliary);
+                auxiliary.getLeftChild().setParent(auxiliary);
             } else {
                 auxiliary.setRightChild(current.getRightChild());
-                auxiliary.getRightChild().setDad(auxiliary);
+                auxiliary.getRightChild().setParent(auxiliary);
             }
         }
 
@@ -88,8 +91,8 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
                 auxiliary.setElement(auxiliary.getRightChild().getElement());
                 auxiliary.setRightChild(null);
             } else {
-                auxiliary.setDad(auxiliary.getDad());
-                auxiliary.getDad().setLeftChild(null);
+                auxiliary.setParent(auxiliary.getParent());
+                auxiliary.getParent().setLeftChild(null);
             }
 
         }
@@ -128,14 +131,11 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
 
     }
 
-    public List<String> print(PrintEnum printEnum) {
+    @SuppressWarnings("unchecked")
+    public List<String> getOrdered(PrintEnum type) {
 
-        return printEnum.getFunction().apply(getRoot());
+        return type.getFunction().apply(getRoot());
 
 
     }
-
-
-
-
 }

@@ -3,90 +3,97 @@ package com.swlo.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum PrintEnum {
-    PREFIX("PREFIX", (node) -> {
+    public enum PrintEnum {
+        PREFIX("PREFIX", (node) -> {
 
-        List<String> list = new ArrayList<>();
-        printPrefix(node, list);
+            List<String> list = new ArrayList<>();
+            printPrefix(node, list);
 
-        return list;
-    }),
+            return list;
+        }),
 
-    INFIX("INFIX", (node) -> {
+        INFIX("INFIX", (node) -> {
 
-        List<String> list = new ArrayList<>();
-        printInfix(node, list);
+            List<String> list = new ArrayList<>();
+            printInfix(node, list);
 
-        return list;
+            return list;
 
-    }),
-    POSTFIX("POSTFIX", (node) -> {
+        }),
+        POSTFIX("POSTFIX", (node) -> {
 
-        List<String> list = new ArrayList<>();
-        printPostfix(node, list);
+            List<String> list = new ArrayList<>();
+            printPostfix(node, list);
 
-        return list;
-
-
-    });
+            return list;
 
 
-    private final String name;
-    private final TreeFunction function;
+        }),
 
-    <T extends Comparable<T>> PrintEnum(String name, TreeFunction<T> function) {
-        this.name = name;
-        this.function = function;
-    }
+        LEVEL("LEVEL", (node) -> {
 
-    public String getName() {
-        return name;
-    }
 
-    public TreeFunction getFunction() {
-        return function;
-    }
+            return null;
 
-    private static <T extends Comparable<T>> void printPrefix(TreeNode<T> node, List<String> list) {
-        if (node == null) {
-            return;
+        });
+
+
+        private final String name;
+        private final TreeFunction function;
+
+        <T extends Comparable<T>> PrintEnum(String name, TreeFunction<T> function) {
+            this.name = name;
+            this.function = function;
         }
 
-        list.add(node.getElement().toString());
+        public String getName() {
+            return name;
+        }
+
+        public TreeFunction getFunction() {
+            return function;
+        }
+
+        private static <T extends Comparable<T>> void printPrefix(TreeNode<T> node, List<String> list) {
+            if (node == null) {
+                return;
+            }
+
+            list.add(node.getElement().toString());
 //        System.out.println(node.getElement());
-        printPrefix(node.getLeftChild(), list);
-        printPrefix(node.getRightChild(), list);
-    }
-
-    private static <T extends Comparable<T>> void printInfix(TreeNode<T> node, List<String> list) {
-        if (node == null) {
-            return;
+            printPrefix(node.getLeftChild(), list);
+            printPrefix(node.getRightChild(), list);
         }
-        printInfix(node.getLeftChild(), list);
-        list.add(node.getElement().toString());
+
+        private static <T extends Comparable<T>> void printInfix(TreeNode<T> node, List<String> list) {
+            if (node == null) {
+                return;
+            }
+            printInfix(node.getLeftChild(), list);
+            list.add(node.getElement().toString());
 //        System.out.println(node.getElement());
-        printInfix(node.getRightChild(), list);
-    }
-
-    private static <T extends Comparable<T>> void printPostfix(TreeNode<T> node, List<String> list) {
-        if (node == null) {
-            return;
+            printInfix(node.getRightChild(), list);
         }
-        printPostfix(node.getLeftChild(), list);
-        printPostfix(node.getRightChild(), list);
+
+        private static <T extends Comparable<T>> void printPostfix(TreeNode<T> node, List<String> list) {
+            if (node == null) {
+                return;
+            }
+            printPostfix(node.getLeftChild(), list);
+            printPostfix(node.getRightChild(), list);
 //        System.out.println(node.getElement());
-        list.add(node.getElement().toString());
-    }
-
-    private static  <T extends Comparable<T>> void printLeveled(TreeNode<T> node, List<String> list) {
-        if (node == null) {
-            return;
+            list.add(node.getElement().toString());
         }
 
+        private static  <T extends Comparable<T>> void printLeveled(TreeNode<T> node, List<String> list) {
+            if (node == null) {
+                return;
+            }
 
-    }
 
-    interface TreeFunction<T extends Comparable<T>> {
-        List<String> apply(TreeNode<T> tree);
+        }
+
+        interface TreeFunction<T extends Comparable<T>> {
+            List<String> apply(TreeNode<T> tree);
+        }
     }
-}

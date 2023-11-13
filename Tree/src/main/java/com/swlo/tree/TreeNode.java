@@ -3,7 +3,7 @@ package com.swlo.tree;
 public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>> {
 
     private T element;
-    private TreeNode<T> dad;
+    private TreeNode<T> parent;
     private TreeNode<T> leftChild;
     private TreeNode<T> rightChild;
 
@@ -11,9 +11,9 @@ public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>
         this.element = element;
     }
 
-    public TreeNode(T element, TreeNode<T> dad) {
+    public TreeNode(T element, TreeNode<T> parent) {
         this.element = element;
-        this.dad = dad;
+        this.parent = parent;
     }
 
     public T getElement() {
@@ -24,12 +24,12 @@ public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>
         this.element = element;
     }
 
-    public TreeNode<T> getDad() {
-        return dad;
+    public TreeNode<T> getParent() {
+        return parent;
     }
 
-    public void setDad(TreeNode<T> dad) {
-        this.dad = dad;
+    public void setParent(TreeNode<T> parent) {
+        this.parent = parent;
     }
 
     public TreeNode<T> getLeftChild() {
