@@ -132,7 +132,7 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<String> getOrdered(PrintEnum type) {
+    public List<T> getOrdered(PrintEnum type) {
 
         return type.getFunction().apply(getRoot());
 

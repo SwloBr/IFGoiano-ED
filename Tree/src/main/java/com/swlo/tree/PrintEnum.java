@@ -6,7 +6,7 @@ import java.util.List;
     public enum PrintEnum {
         PREFIX("PREFIX", (node) -> {
 
-            List<String> list = new ArrayList<>();
+            List<Object> list = new ArrayList<>();
             printPrefix(node, list);
 
             return list;
@@ -14,7 +14,7 @@ import java.util.List;
 
         INFIX("INFIX", (node) -> {
 
-            List<String> list = new ArrayList<>();
+            List<Object> list = new ArrayList<>();
             printInfix(node, list);
 
             return list;
@@ -22,7 +22,7 @@ import java.util.List;
         }),
         POSTFIX("POSTFIX", (node) -> {
 
-            List<String> list = new ArrayList<>();
+            List<Object> list = new ArrayList<>();
             printPostfix(node, list);
 
             return list;
@@ -54,7 +54,7 @@ import java.util.List;
             return function;
         }
 
-        private static <T extends Comparable<T>> void printPrefix(TreeNode<T> node, List<String> list) {
+        private static <T extends Comparable<T>> void printPrefix(TreeNode<T> node, List<Object> list) {
             if (node == null) {
                 return;
             }
@@ -65,7 +65,7 @@ import java.util.List;
             printPrefix(node.getRightChild(), list);
         }
 
-        private static <T extends Comparable<T>> void printInfix(TreeNode<T> node, List<String> list) {
+        private static <T extends Comparable<T>> void printInfix(TreeNode<T> node, List<Object> list) {
             if (node == null) {
                 return;
             }
@@ -75,7 +75,7 @@ import java.util.List;
             printInfix(node.getRightChild(), list);
         }
 
-        private static <T extends Comparable<T>> void printPostfix(TreeNode<T> node, List<String> list) {
+        private static <T extends Comparable<T>> void printPostfix(TreeNode<T> node, List<Object> list) {
             if (node == null) {
                 return;
             }
@@ -94,6 +94,6 @@ import java.util.List;
         }
 
         interface TreeFunction<T extends Comparable<T>> {
-            List<String> apply(TreeNode<T> tree);
+            List<Object> apply(TreeNode<T> tree);
         }
     }
