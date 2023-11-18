@@ -1,4 +1,4 @@
-package com.swlo.tree;
+package com.swlo.tree.node;
 
 public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>> {
 
@@ -10,6 +10,7 @@ public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>
     public TreeNode(T element) {
         this.element = element;
     }
+
 
     public TreeNode(T element, TreeNode<T> parent) {
         this.element = element;

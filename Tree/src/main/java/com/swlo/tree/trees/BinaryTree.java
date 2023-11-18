@@ -1,4 +1,7 @@
-package com.swlo.tree;
+package com.swlo.tree.trees;
+
+import com.swlo.tree.util.PrintEnum;
+import com.swlo.tree.node.TreeNode;
 
 import java.util.List;
 
@@ -134,8 +137,74 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
     @SuppressWarnings("unchecked")
     public List<T> getOrdered(PrintEnum type) {
 
-        return type.getFunction().apply(getRoot());
-
-
+        return (List<T>) type.getFunction().apply(getRoot());
     }
+
+
+
+    public void balance() {
+        TreeNode<T> pseudoRoot = new TreeNode<>(null);
+        pseudoRoot.setRightChild(getRoot());
+
+        treeToVine(pseudoRoot);
+        vineToTree(pseudoRoot, size(pseudoRoot));
+
+        setRoot(pseudoRoot.getRightChild());
+    }
+
+    private void treeToVine(TreeNode<T> root) {
+        TreeNode<T> tail = root;
+        TreeNode<T> rest = tail.getRightChild();
+
+        while (rest != null) {
+            if (rest.getLeftChild() == null) {
+                tail = rest;
+                rest = rest.getRightChild();
+            } else {
+                TreeNode<T> temp = rest.getLeftChild();
+                rest.setLeftChild(temp.getRightChild());
+                temp.setRightChild(rest);
+                rest = temp;
+                tail.setRightChild(temp);
+            }
+        }
+    }
+
+    private void vineToTree(TreeNode<T> root, int size) {
+        int leaves = size + 1 - (int) Math.pow(2, Math.floor(Math.log(size + 1) / Math.log(2)));
+        makeRotations(root, leaves);
+
+        size = size - leaves;
+        while (size > 1) {
+            makeRotations(root, size /= 2);
+        }
+    }
+
+    private void makeRotations(TreeNode<T> root, int bound) {
+        TreeNode<T> node = root;
+        for (; bound > 0; bound--) {
+            TreeNode<T> a = node;
+            TreeNode<T> b = a.getRightChild();
+            TreeNode<T> c = b.getRightChild();
+
+            a.setRightChild(c);
+            b.setRightChild(c.getLeftChild());
+            c.setLeftChild(b);
+
+            node = node.getRightChild();
+        }
+    }
+
+    private int size(TreeNode<T> node) {
+        if (node == null) {
+            return 0;
+        } else {
+            return 1 + size(node.getLeftChild()) + size(node.getRightChild());
+        }
+    }
+
 }
+
+
+
+

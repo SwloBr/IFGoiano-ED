@@ -1,4 +1,6 @@
-package com.swlo.tree;
+package com.swlo.tree.trees;
+
+import com.swlo.tree.node.TreeNode;
 
 public abstract class GenericTree<T extends Comparable<T>> {
 

@@ -1,6 +1,11 @@
 package com.swlo.tree;
 
-import java.util.*;
+import com.swlo.tree.trees.BinaryTree;
+import com.swlo.tree.util.PrintEnum;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -10,7 +15,6 @@ public class Main {
 
         BinaryTree<Integer> tree = new BinaryTree<>();
         List<Integer> list = new ArrayList<>();
-
 
         for (int i = 0; i < 20; i++) {
             Integer number = random.nextInt(0, 100);
@@ -54,14 +58,12 @@ public class Main {
         System.out.println(tree.getOrdered(PrintEnum.POSTFIX));
         System.out.println(tree.getOrdered(PrintEnum.LEVEL));
 
-         System.out.println("\n\nSEGUNDA ARVORE :");
+        System.out.println("\n\nSEGUNDA ARVORE :");
 
         System.out.println(tree2.getOrdered(PrintEnum.PREFIX));
         System.out.println(tree2.getOrdered(PrintEnum.INFIX));
         System.out.println(tree2.getOrdered(PrintEnum.POSTFIX));
         System.out.println(tree2.getOrdered(PrintEnum.LEVEL));
-
-
 
 
         BinaryTree<String> tree3 = new BinaryTree<>();
