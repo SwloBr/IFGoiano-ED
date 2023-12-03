@@ -1,7 +1,7 @@
 package com.swlo.tree.trees;
 
 import com.swlo.tree.util.PrintEnum;
-import com.swlo.tree.node.TreeNode;
+import com.swlo.tree.node.BinaryTreeNode;
 
 import java.util.List;
 
@@ -10,16 +10,16 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
     @Override
     public void add(T element) {
         if (getRoot() == null) {
-            setRoot(new TreeNode<>(element));
+            setRoot(new BinaryTreeNode<>(element));
             return;
         }
 
-        TreeNode<T> current = getRoot();
+        BinaryTreeNode<T> current = getRoot();
 
         while (true) {
             if (element.compareTo(current.getElement()) < 0) {
                 if (current.getLeftChild() == null) {
-                    current.setLeftChild(new TreeNode<>(element, current));
+                    current.setLeftChild(new BinaryTreeNode<>(element, current));
                     break;
                 } else {
                     current = current.getLeftChild();
@@ -28,7 +28,7 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
 
             if (element.compareTo(current.getElement()) > 0) {
                 if (current.getRightChild() == null) {
-                    current.setRightChild(new TreeNode<>(element, current));
+                    current.setRightChild(new BinaryTreeNode<>(element, current));
                     break;
                 } else {
                     current = current.getRightChild();
@@ -49,8 +49,8 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
         }
 
 
-        TreeNode<T> current = search(element);
-        TreeNode<T> auxiliary = null;
+        BinaryTreeNode<T> current = search(element);
+        BinaryTreeNode<T> auxiliary = null;
 
 
         if (current.getLeftChild() == null && current.getRightChild() == null) {
@@ -103,13 +103,13 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
     }
 
     @Override
-    public TreeNode<T> search(T element) {
+    public BinaryTreeNode<T> search(T element) {
 
         if (getRoot() == null) {
             return null;
         }
 
-        TreeNode<T> current = getRoot();
+        BinaryTreeNode<T> current = getRoot();
 
         while (true) {
             if (element.compareTo(current.getElement()) < 0) {
@@ -143,7 +143,7 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
 
 
     public void balance() {
-        TreeNode<T> pseudoRoot = new TreeNode<>(null);
+        BinaryTreeNode<T> pseudoRoot = new BinaryTreeNode<>(null);
         pseudoRoot.setRightChild(getRoot());
 
         treeToVine(pseudoRoot);
@@ -152,16 +152,16 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
         setRoot(pseudoRoot.getRightChild());
     }
 
-    private void treeToVine(TreeNode<T> root) {
-        TreeNode<T> tail = root;
-        TreeNode<T> rest = tail.getRightChild();
+    private void treeToVine(BinaryTreeNode<T> root) {
+        BinaryTreeNode<T> tail = root;
+        BinaryTreeNode<T> rest = tail.getRightChild();
 
         while (rest != null) {
             if (rest.getLeftChild() == null) {
                 tail = rest;
                 rest = rest.getRightChild();
             } else {
-                TreeNode<T> temp = rest.getLeftChild();
+                BinaryTreeNode<T> temp = rest.getLeftChild();
                 rest.setLeftChild(temp.getRightChild());
                 temp.setRightChild(rest);
                 rest = temp;
@@ -170,7 +170,7 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
         }
     }
 
-    private void vineToTree(TreeNode<T> root, int size) {
+    private void vineToTree(BinaryTreeNode<T> root, int size) {
         int leaves = size + 1 - (int) Math.pow(2, Math.floor(Math.log(size + 1) / Math.log(2)));
         makeRotations(root, leaves);
 
@@ -180,12 +180,12 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
         }
     }
 
-    private void makeRotations(TreeNode<T> root, int bound) {
-        TreeNode<T> node = root;
+    private void makeRotations(BinaryTreeNode<T> root, int bound) {
+        BinaryTreeNode<T> node = root;
         for (; bound > 0; bound--) {
-            TreeNode<T> a = node;
-            TreeNode<T> b = a.getRightChild();
-            TreeNode<T> c = b.getRightChild();
+            BinaryTreeNode<T> a = node;
+            BinaryTreeNode<T> b = a.getRightChild();
+            BinaryTreeNode<T> c = b.getRightChild();
 
             a.setRightChild(c);
             b.setRightChild(c.getLeftChild());
@@ -195,7 +195,7 @@ public class BinaryTree<T extends Comparable<T>> extends GenericTree<T> {
         }
     }
 
-    private int size(TreeNode<T> node) {
+    private int size(BinaryTreeNode<T> node) {
         if (node == null) {
             return 0;
         } else {

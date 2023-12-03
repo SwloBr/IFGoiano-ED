@@ -1,22 +1,22 @@
 package com.swlo.tree.trees;
 
-import com.swlo.tree.node.TreeNode;
+import com.swlo.tree.node.BinaryTreeNode;
 
 public abstract class GenericTree<T extends Comparable<T>> {
 
-    private TreeNode<T> root;
+    private BinaryTreeNode<T> root;
 
     public abstract void add(T element);
 
     public abstract void remove(T element);
 
-    public abstract TreeNode<T> search(T element);
+    public abstract BinaryTreeNode<T> search(T element);
 
-    public TreeNode<T> getRoot() {
+    public BinaryTreeNode<T> getRoot() {
         return root;
     }
 
-    public void setRoot(TreeNode<T> root) {
+    public void setRoot(BinaryTreeNode<T> root) {
         this.root = root;
     }
 }

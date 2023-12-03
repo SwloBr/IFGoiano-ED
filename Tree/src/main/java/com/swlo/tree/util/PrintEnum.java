@@ -1,6 +1,6 @@
 package com.swlo.tree.util;
 
-import com.swlo.tree.node.TreeNode;
+import com.swlo.tree.node.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,7 +20,7 @@ public enum PrintEnum {
         this.function = function;
     }
 
-    private static <T extends Comparable<T>> List<T> print(TreeNode<T> node, Order order) {
+    private static <T extends Comparable<T>> List<T> print(BinaryTreeNode<T> node, Order order) {
         List<T> list = new ArrayList<>();
         switch (order) {
             case PREFIX:
@@ -45,10 +45,10 @@ public enum PrintEnum {
                 }
                 break;
             case LEVEL:
-                Queue<TreeNode<T>> queue = new LinkedList<>();
+                Queue<BinaryTreeNode<T>> queue = new LinkedList<>();
                 queue.add(node);
                 while (!queue.isEmpty()) {
-                    TreeNode<T> currentNode = queue.poll();
+                    BinaryTreeNode<T> currentNode = queue.poll();
                     list.add(currentNode.getElement());
                     if (currentNode.getLeftChild() != null) queue.add(currentNode.getLeftChild());
                     if (currentNode.getRightChild() != null) queue.add(currentNode.getRightChild());
@@ -67,6 +67,6 @@ public enum PrintEnum {
     }
 
     public interface TreeFunction<T extends Comparable<T>> {
-        List<T> apply(TreeNode<T> tree);
+        List<T> apply(BinaryTreeNode<T> tree);
     }
 }
