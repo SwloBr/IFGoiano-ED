@@ -1,106 +1,164 @@
 package com.swlo.tree.trees;
 
 import com.swlo.tree.node.AvlTreeNode;
-import com.swlo.tree.node.BinaryTreeNode;
+import com.swlo.tree.util.PrintEnum1;
 
-public class AvlTree<T extends Comparable<T>> extends BinaryTree<T>{
+import java.util.List;
 
-    @Override
+
+public class AvlTree<T extends Comparable<T>> {
+
+
+    private AvlTreeNode<T> root;
+
+    public AvlTreeNode<T> getRoot() {
+        return root;
+    }
+
+    public void setRoot(AvlTreeNode<T> root) {
+        this.root = root;
+    }
+
     public void add(T element) {
+        root = add(root, element);
+    }
+
+    private AvlTreeNode<T> add(AvlTreeNode<T> node, T element) {
+        if (node == null) {
+            return new AvlTreeNode<>(element);
+        }
+        int compareResult = element.compareTo(node.getElement());
+        if (compareResult < 0) {
+            node.setLeftChild(add(node.getLeftChild(), element));
+        } else if (compareResult > 0) {
+            node.setRightChild(add(node.getRightChild(), element));
+        } else {
+            return node;
+        }
+        return balance(node);
+    }
+
+    public void remove(T element) {
+        root = remove(root, element);
+    }
+
+    private AvlTreeNode<T> remove(AvlTreeNode<T> node, T element) {
+        if (node == null) {
+            return null;
+        }
+        int compareResult = element.compareTo(node.getElement());
+        if (compareResult < 0) {
+            node.setLeftChild(remove(node.getLeftChild(), element));
+        } else if (compareResult > 0) {
+            node.setRightChild(remove(node.getRightChild(), element));
+        } else if (node.getLeftChild() != null && node.getRightChild() != null) {
+            node.setElement(findMin(node.getRightChild()).getElement());
+            node.setRightChild(remove(node.getRightChild(), node.getElement()));
+        } else {
+            node = (node.getLeftChild() != null) ? node.getLeftChild() : node.getRightChild();
+        }
+        return balance(node);
+    }
+
+    private AvlTreeNode<T> findMin(AvlTreeNode<T> node) {
+        if (node == null) {
+            return node;
+        }
+        while (node.getLeftChild() != null) {
+            node = node.getLeftChild();
+        }
+        return node;
+    }
+
+
+    public AvlTreeNode<T> search(T element) {
+
         if (getRoot() == null) {
-            setRoot(new AvlTreeNode<>(element));
-            return;
+            return null;
         }
 
-        AvlTreeNode<T> current = (AvlTreeNode<T>) getRoot();
+        AvlTreeNode<T> current = getRoot();
 
         while (true) {
             if (element.compareTo(current.getElement()) < 0) {
                 if (current.getLeftChild() == null) {
-                    current.setLeftChild(new AvlTreeNode<>(element, current));
-                    break;
+                    return null;
                 } else {
-                    current = (AvlTreeNode<T>) current.getLeftChild();
+                    current = current.getLeftChild();
                 }
             }
-
             if (element.compareTo(current.getElement()) > 0) {
                 if (current.getRightChild() == null) {
-                    current.setRightChild(new AvlTreeNode<>(element, current));
-                    break;
+                    return null;
                 } else {
-                    current = (AvlTreeNode<T>) current.getRightChild();
+                    current = current.getRightChild();
                 }
             }
 
             if (element.compareTo(current.getElement()) == 0) {
-                break;
+                return current;
             }
         }
-        balance(getRoot());
+
     }
 
-    @Override
-    public void remove(T element) {
-        super.remove(element);
-        balance(getRoot());
-    }
+    /* AVL METHODS START*/
 
-    private void balance(BinaryTreeNode<T> node) {
+    private int height(AvlTreeNode<T> node) {
         if (node == null) {
-            return;
+            return -1;
         }
+        return node.getHeight();
+    }
 
-        int balance = getBalance(node);
+    private int balanceFactor(AvlTreeNode<T> node) {
+        return height(node.getLeftChild()) - height(node.getRightChild());
+    }
 
-        if (balance > 1) {
-            if (getBalance(node.getLeftChild()) < 0) {
-                node.setLeftChild(rotateLeft(node.getLeftChild()));
-            }
-            node = rotateRight(node);
-        } else if (balance < -1) {
-            if (getBalance(node.getRightChild()) > 0) {
+    private AvlTreeNode<T> rotateRight(AvlTreeNode<T> node) {
+        AvlTreeNode<T> leftChild = node.getLeftChild();
+        node.setLeftChild(leftChild.getRightChild());
+        leftChild.setRightChild(node);
+        node.setHeight(Math.max(height(node.getLeftChild()), height(node.getRightChild())) + 1);
+        leftChild.setHeight(Math.max(height(leftChild.getLeftChild()), node.getHeight()) + 1);
+        return leftChild;
+    }
+
+    private AvlTreeNode<T> rotateLeft(AvlTreeNode<T> node) {
+        AvlTreeNode<T> rightChild = node.getRightChild();
+        node.setRightChild(rightChild.getLeftChild());
+        rightChild.setLeftChild(node);
+        node.setHeight(Math.max(height(node.getLeftChild()), height(node.getRightChild())) + 1);
+        rightChild.setHeight(Math.max(height(rightChild.getRightChild()), node.getHeight()) + 1);
+        return rightChild;
+    }
+
+    private AvlTreeNode<T> balance(AvlTreeNode<T> node) {
+
+        if (balanceFactor(node) == -2) {
+
+            if (balanceFactor(node.getRightChild()) > 0) {
                 node.setRightChild(rotateRight(node.getRightChild()));
             }
             node = rotateLeft(node);
+        } else if (balanceFactor(node) == 2) {
+            if (balanceFactor(node.getLeftChild()) < 0) {
+                node.setLeftChild(rotateLeft(node.getLeftChild()));
+            }
+            node = rotateRight(node);
         }
-
-        if (node instanceof AvlTreeNode) {
-            ((AvlTreeNode<T>) node).setBalanceFactor(balance);
-        }
-
-        balance(node.getLeftChild());
-        balance(node.getRightChild());
+        return node;
     }
 
-    private BinaryTreeNode<T> rotateLeft(BinaryTreeNode<T> node) {
-        BinaryTreeNode<T> newRoot = node.getRightChild();
-        node.setRightChild(newRoot.getLeftChild());
-        newRoot.setLeftChild(node);
-        return newRoot;
+
+    /* AVL METHODS END*/
+
+
+    @SuppressWarnings("unchecked")
+    public List<T> getOrdered(PrintEnum1 type) {
+
+        return (List<T>) type.getFunction().apply(getRoot());
     }
 
-    private BinaryTreeNode<T> rotateRight(BinaryTreeNode<T> node) {
-        BinaryTreeNode<T> newRoot = node.getLeftChild();
-        node.setLeftChild(newRoot.getRightChild());
-        newRoot.setRightChild(node);
-        return newRoot;
-    }
 
-    private int getHeight(BinaryTreeNode<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        if (!(node instanceof AvlTreeNode)) {
-            return 0;
-        }
-        return ((AvlTreeNode<T>) node).getHeight();
-    }
-
-    private int getBalance(BinaryTreeNode<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        return getHeight(node.getLeftChild()) - getHeight(node.getRightChild());
-    }
 }
