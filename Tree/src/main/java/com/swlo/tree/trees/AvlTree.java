@@ -48,12 +48,18 @@ public class AvlTree<T extends Comparable<T>> {
         }
         int compareResult = element.compareTo(node.getElement());
         if (compareResult < 0) {
-            node.setLeftChild(remove(node.getLeftChild(), element));
+            if (node.getLeftChild() != null) {
+                node.setLeftChild(remove(node.getLeftChild(), element));
+            }
         } else if (compareResult > 0) {
-            node.setRightChild(remove(node.getRightChild(), element));
+            if (node.getRightChild() != null) {
+                node.setRightChild(remove(node.getRightChild(), element));
+            }
         } else if (node.getLeftChild() != null && node.getRightChild() != null) {
             node.setElement(findMin(node.getRightChild()).getElement());
-            node.setRightChild(remove(node.getRightChild(), node.getElement()));
+            if (node.getRightChild() != null) {
+                node.setRightChild(remove(node.getRightChild(), node.getElement()));
+            }
         } else {
             node = (node.getLeftChild() != null) ? node.getLeftChild() : node.getRightChild();
         }

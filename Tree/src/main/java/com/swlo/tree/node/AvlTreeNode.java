@@ -1,18 +1,17 @@
 package com.swlo.tree.node;
 
 public class AvlTreeNode<T extends Comparable<T>> {
-    
-    
+
+
     private int height;
     private int balanceFactor;
-    
+
     private T element;
     private AvlTreeNode<T> parent;
     private AvlTreeNode<T> leftChild;
     private AvlTreeNode<T> rightChild;
 
-    
-    
+
     public AvlTreeNode(T element) {
         this.element = element;
         this.height = 1;
@@ -34,7 +33,6 @@ public class AvlTreeNode<T extends Comparable<T>> {
     public void setElement(T element) {
         this.element = element;
     }
-
 
 
     public AvlTreeNode<T> getParent() {
@@ -60,8 +58,7 @@ public class AvlTreeNode<T extends Comparable<T>> {
     public void setRightChild(AvlTreeNode<T> rightChild) {
         this.rightChild = rightChild;
     }
-    
-    
+
 
     public int getHeight() {
         return height;
